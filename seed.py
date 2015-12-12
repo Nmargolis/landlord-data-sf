@@ -8,11 +8,13 @@ import pprint
 import ast
 
 
-# initialize pprint
+# initialize pretty print to print out json and dictionaries in readable format
 pp = pprint.PrettyPrinter(indent=4)
 
 
 def make_request():
+    """Makes request to SF Open Data API and return the response in json form"""
+
     url = "https://data.sfgov.org/resource/nqzj-5ui2.json"
     response = requests.get(url)
     json_response = response.json()
@@ -22,7 +24,7 @@ def make_request():
 
 
 def add_location(single_results_entry):
-    """Takes a single business entry from API results, adds location to db, returns location_id"""
+    """Takes a single business entry from API results, adds location to db if it isn't already there, returns location_id"""
 
     # Initialize location_id to return
     location_id = ""

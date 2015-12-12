@@ -17,6 +17,10 @@ class Location(db.Model):
     state = db.Column(db.Text)
     zipcode = db.Column(db.Text)
 
+    businesses = db.relationship('Business',
+                                 secondary='BusinessLocations',
+                                 backref='location')
+
 
 class Business(db.Model):
     """Class for businesses table"""
@@ -28,12 +32,19 @@ class Business(db.Model):
     ownership_name = db.Column(db.Text)
     class_code = db.Column(db.Text)
     pbc_code = db.Column(db.Text)
+
+
+class BusinessLocation(db.Model):
+    "Association table between Business and Location"
+
+    __tablename__ = "BusinessLocations"
+
+    business_location_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    business_id = db.Column(db.Integer, db.ForeignKey('Businesses.business_id'))
     location_id = db.Column(db.Integer, db.ForeignKey('Locations.location_id'))
 
-    location = db.relationship('Location', backref='businesses')
-
-
-
+    business = db.relationship('Business', backref='businesslocation')
+    location = db.relationship('Location', backref='businesslocation')
 
 ##############################################################################
 # Helper functions
