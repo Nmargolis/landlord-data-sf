@@ -21,6 +21,10 @@ class Location(db.Model):
                                  secondary='BusinessLocations',
                                  backref='location')
 
+    def __repr__(self):
+        return "<Location location_id = {} lat = {} lon = {} address = {} city = {} state = {} zipcode = {}>".format(
+            self.location_id, self.lat, self.lon, self.address, self.city, self.state, self.zipcode)
+
 
 class Business(db.Model):
     """Class for businesses table"""
@@ -32,6 +36,10 @@ class Business(db.Model):
     ownership_name = db.Column(db.Text)
     class_code = db.Column(db.Text)
     pbc_code = db.Column(db.Text)
+
+    def __repr__(self):
+        return "<Business business_id = {} dba_name = {} ownership_name = {} class_code = {} pbc_code = {}>".format(
+            self.business_id, self.dba_name, self.ownership_name, self.class_code, self.pbc_code)
 
 
 class BusinessLocation(db.Model):
@@ -46,8 +54,13 @@ class BusinessLocation(db.Model):
     business = db.relationship('Business', backref='businesslocation')
     location = db.relationship('Location', backref='businesslocation')
 
+    def __repr__(self):
+        return "<BusinessLocation business_location_id = {} business_id = {}, location_id = {}>".format(
+            self.business_location_id, self.business_id, self.location_id)
+
 ##############################################################################
 # Helper functions
+
 
 def connect_to_db(app):
     """Connect the database to our Flask app."""
