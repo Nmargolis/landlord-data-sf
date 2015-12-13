@@ -42,12 +42,15 @@ class Business(db.Model):
             self.business_id, self.dba_name, self.ownership_name, self.class_code, self.pbc_code)
 
 
+# TO DO: Create separate table for ownership name and/or dba_name, since one owner or business could have multiple pbc codes (maybe)
+
+
 class BusinessLocation(db.Model):
     "Association table between Business and Location"
 
     __tablename__ = "BusinessLocations"
 
-    business_location_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    businesslocation_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     business_id = db.Column(db.Integer, db.ForeignKey('Businesses.business_id'))
     location_id = db.Column(db.Integer, db.ForeignKey('Locations.location_id'))
 
@@ -56,7 +59,7 @@ class BusinessLocation(db.Model):
 
     def __repr__(self):
         return "<BusinessLocation business_location_id = {} business_id = {}, location_id = {}>".format(
-            self.business_location_id, self.business_id, self.location_id)
+            self.businesslocation_id, self.business_id, self.location_id)
 
 ##############################################################################
 # Helper functions
