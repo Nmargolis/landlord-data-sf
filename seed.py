@@ -123,10 +123,10 @@ def add_businesslocation(business_id, location_id):
 def load_locations_and_businesses(data_results_json):
     """Takes json api data and creates entries in Locations and Businesses tables"""
 
-    # Add first 5 businesses locations to database
-    for i in range(0, 5):
-        location_id = add_location(data_results_json[i])
-        business_id = add_business(data_results_json[i])
+    # Add businsess
+    for business in data_results_json:
+        location_id = add_location(business)
+        business_id = add_business(business)
         add_businesslocation(business_id, location_id)
 
 
